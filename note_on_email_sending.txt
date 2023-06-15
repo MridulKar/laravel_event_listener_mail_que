@@ -1,0 +1,37 @@
+1. Google App > Security > 2 Step Verification > App Passsword
+2. Select App: Mail, Select Device: Windows Computer> Get your Password
+3. Laravel Project > .env
+
+    MAIL_MAILER=smtp
+    MAIL_HOST=smtp.gmail.com
+    MAIL_PORT=587
+    MAIL_USERNAME=themridulkar
+    MAIL_PASSWORD=yiqthuojkdklbsre
+    MAIL_ENCRYPTION=tls
+    MAIL_FROM_ADDRESS="themridulkar@gmail.com"
+    MAIL_FROM_NAME="themridulkar"
+
+4. php artisan make:mail SendMail
+5. Goto Mail > SendMail
+
+   a. Get the variable $email_data in constructor function
+   b. Use envelope function for mail subject
+   c. and content function to return a view to generate the email subject
+
+6. php artisan make:controller EmailController
+   
+   use Illuminate\Support\Facades\Mail;
+   use App\Mail\SendMail;
+
+   public function index(){
+
+        $mail_data = [
+            'title' => 'Mail from Mridul Kar',
+            'body'  => 'This is for testing email using smtp',
+        ];
+
+        Mail::to('whom you want to send mail')->send(new UserMail($email_data));
+
+        dd('Email Sent Successfully');
+    }
+7. Route::get('/send-mail', [EmailController::class, 'index']);

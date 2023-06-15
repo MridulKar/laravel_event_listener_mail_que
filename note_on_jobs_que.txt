@@ -1,0 +1,8 @@
+1. php artisan que:table
+2. a table named jobs will be created
+3. Go to .env
+   change que connetion to QUEUE_CONNECTION=database
+4. write implements Shouldque in the class you want to do run jobs que. like for email sending in mail class:
+   class SendMail extends Mailable implements ShouldQueue
+5. php artisan migrate
+6. php artisan que:listen

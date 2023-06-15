@@ -1,0 +1,29 @@
+1. php artisan make:event EmailSent
+2. php artisan make:listener NotifyByEmail --event=EmailSent
+3. Go to App > Provieder > EventServiceProvider.php
+    
+    protected $listen = [
+
+        \App\Events\EmailSent::class => [
+            \App\Listeners\NotifyByEmail::class
+        ]
+
+    ];
+
+4. implement this event in controller
+   event(new EmailSent($email_data));
+
+
+5. Go to App > Events > EmailSent
+   store variable $email_data in construct function
+
+6. Go to App > Listeners > NotifyByEmail.php
+   use the handle function for t he task you want to be done like sending email
+
+   $users = User::get();
+
+   foreach($users as $user){
+      Mail::to($user->email)->send(new UserMail($event->email_data));
+   }
+
+
